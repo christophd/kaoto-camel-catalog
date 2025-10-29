@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.2.8 (2025-10-29)
+
+### Bug Fixes
+
+* **CamelYamlDsl:** Fix Camel Yaml DSL union types ([72b6e5b](https://github.com/KaotoIO/camel-catalog/commit/72b6e5b5b9ded97f5ceb6a287f9a92bf9562bb84))
+
 ## 0.2.7 (2025-10-28)
 
 **Note:** Version bump only for package @kaoto/camel-catalog
