@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.2.10 (2025-10-30)
+
+### Bug Fixes
+
+* **Catalog:** Fix the default values for languages ([8986488](https://github.com/KaotoIO/camel-catalog/commit/898648879871b2903ded9103c7ca9cd0c67e4e98))
+
 ## 0.2.9 (2025-10-30)
 
 ### Bug Fixes
