@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.2.9 (2025-10-30)
+
+### Bug Fixes
+
+* **Catalog:** Workaround for string-defined default values ([07a58ca](https://github.com/KaotoIO/camel-catalog/commit/07a58caec50343824f267ab5ef327ada1efd853b))
+
 ## 0.2.8 (2025-10-29)
 
 ### Bug Fixes
