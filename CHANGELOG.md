@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.3.3 (2026-01-05)
+
+### Bug Fixes
+
+* **deps:** update dependency org.apache.camel.quarkus:camel-quarkus-catalog to v3.30.0 ([a57b699](https://github.com/KaotoIO/camel-catalog/commit/a57b699f0bda0272296f8af490452ebcafd94aae))
+
 ## 0.3.2 (2025-12-11)
 
 **Note:** Version bump only for package @kaoto/camel-catalog
