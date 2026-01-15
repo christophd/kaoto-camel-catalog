@@ -18,11 +18,12 @@ package io.kaoto.camelcatalog.model;
 public enum CatalogRuntime {
     Main("Main"),
     Quarkus("Quarkus"),
-    SpringBoot("Spring Boot");
+    SpringBoot("Spring Boot"),
+    Citrus("Citrus");
 
     private final String label;
 
-    private CatalogRuntime(String label) {
+    CatalogRuntime(String label) {
         this.label = label;
     }
 

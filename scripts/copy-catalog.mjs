@@ -14,10 +14,10 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(__dirname, '..');
 
-const src = resolve(projectRoot, 'dist/camel-catalog');
-const dest = resolve(projectRoot, 'catalog');
+async function copyFiles(srcDir) {
+  const src = resolve(projectRoot, srcDir);
+  const dest = resolve(projectRoot, 'catalog');
 
-async function copyFiles() {
   try {
     await access(src);
   } catch {
@@ -37,4 +37,5 @@ async function copyFiles() {
   console.log('Catalog files copied successfully.');
 }
 
-copyFiles();
+copyFiles('dist/camel-catalog');
+copyFiles('dist/citrus-catalog');

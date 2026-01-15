@@ -19,6 +19,7 @@
     <version.camel>4.16.0</version.camel>
     <version.camel.quarkus>3.30.0</version.camel.quarkus>
     <version.camel-kamelets>4.16.0</version.camel-kamelets>
+    <version.citrus>4.9.1</version.citrus>
     <version.jackson>2.20.1</version.jackson>
     <version.junit>5.14.1</version.junit>
     <version.kubernetes-model>6.14.0</version.kubernetes-model>
@@ -56,6 +57,20 @@
       <groupId>org.apache.camel.kamelets</groupId>
       <artifactId>camel-kamelets</artifactId>
       <version>${version.camel-kamelets}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.citrusframework</groupId>
+      <artifactId>citrus-catalog-schema</artifactId>
+      <version>${version.citrus}</version>
+      <scope>runtime</scope>
+      <optional>true</optional>
+      <!-- Exclusion of citrus schema generator as it brings in lots of transitive dependencies. Gets fixed in Citrus 4.9.2 -->
+      <exclusions>
+        <exclusion>
+          <groupId>org.citrusframework</groupId>
+          <artifactId>citrus-schema-generator</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>io.fabric8</groupId>
@@ -140,6 +155,60 @@
                 </transformer>
               </transformers>
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.8.0</version>
+        <configuration>
+          <finalName>dist</finalName>
+          <appendAssemblyId>false</appendAssemblyId>
+          <descriptors>
+            <descriptor>src/main/assembly/citrus-catalog.xml</descriptor>
+          </descriptors>
+          <attach>false</attach>
+        </configuration>
+        <executions>
+          <execution>
+            <id>citrus-catalog</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.4.0</version>
+        <configuration>
+          <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <id>copy-citrus-catalog</id>
+            <phase>package</phase>
+            <configuration>
+              <outputDirectory>${project.basedir}/dist/citrus-catalog</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.build.directory}/dist/citrus-catalog/org/citrusframework/schema</directory>
+                  <includes>
+                    <include>*.json</include>
+                    <include>citrus/*.json</include>
+                    <include>citrus/*.xsd</include>
+                    <include>citrus/${version.citrus}/*.json</include>
+                    <include>citrus/${version.citrus}/*.xsd</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>

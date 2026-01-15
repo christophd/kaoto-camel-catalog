@@ -24,8 +24,8 @@ public class CatalogDefinition {
     private String name;
     private String version;
     private CatalogRuntime runtime;
-    private Map<String, CatalogDefinitionEntry> catalogs = new HashMap<>();
-    private Map<String, CatalogDefinitionEntry> schemas = new HashMap<>();
+    private final Map<String, CatalogDefinitionEntry> catalogs = new HashMap<>();
+    private final Map<String, CatalogDefinitionEntry> schemas = new HashMap<>();
     private String fileName;
 
     public String getName() {
