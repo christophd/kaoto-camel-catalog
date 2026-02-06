@@ -1504,6 +1504,13 @@
                           "title" : "Integration",
                           "description" : "The Camel integration to send the message to."
                         },
+                        "jsonOutput" : {
+                          "type" : "boolean",
+                          "title" : "JsonOutput",
+                          "description" : "When enabled action stores messages from json output.",
+                          "default" : "false",
+                          "$comment" : "group:advanced"
+                        },
                         "loggingColor" : {
                           "type" : "boolean",
                           "title" : "LoggingColor",
@@ -2438,6 +2445,7 @@
           "properties" : {
             "camel" : { },
             "channel" : { },
+            "context" : { },
             "description" : {
               "type" : "string",
               "title" : "Description",
@@ -3491,6 +3499,40 @@
                 }
               },
               "required" : [ "webSocket" ]
+            }, {
+              "type" : "object",
+              "properties" : {
+                "context" : {
+                  "type" : "object",
+                  "properties" : {
+                    "messageStore" : {
+                      "type" : "object",
+                      "properties" : {
+                        "messageName" : {
+                          "type" : "string",
+                          "title" : "MessageName",
+                          "description" : "The message name."
+                        },
+                        "name" : {
+                          "type" : "string",
+                          "title" : "Name",
+                          "description" : "The name of the endpoint"
+                        },
+                        "timeout" : {
+                          "type" : "integer",
+                          "title" : "Timeout",
+                          "description" : "The timeout when receiving messages from the message store."
+                        }
+                      },
+                      "title" : "MessageStore",
+                      "description" : "Sets a message store endpoint ."
+                    }
+                  },
+                  "title" : "Context",
+                  "description" : "Context endpoint."
+                }
+              },
+              "required" : [ "context" ]
             }, {
               "type" : "object",
               "properties" : {
@@ -10659,6 +10701,7 @@
         "properties" : {
           "camel" : { },
           "channel" : { },
+          "context" : { },
           "direct" : { },
           "docker" : { },
           "ftp" : { },
@@ -11700,6 +11743,40 @@
               }
             },
             "required" : [ "webSocket" ]
+          }, {
+            "type" : "object",
+            "properties" : {
+              "context" : {
+                "type" : "object",
+                "properties" : {
+                  "messageStore" : {
+                    "type" : "object",
+                    "properties" : {
+                      "messageName" : {
+                        "type" : "string",
+                        "title" : "MessageName",
+                        "description" : "The message name."
+                      },
+                      "name" : {
+                        "type" : "string",
+                        "title" : "Name",
+                        "description" : "The name of the endpoint"
+                      },
+                      "timeout" : {
+                        "type" : "integer",
+                        "title" : "Timeout",
+                        "description" : "The timeout when receiving messages from the message store."
+                      }
+                    },
+                    "title" : "MessageStore",
+                    "description" : "Sets a message store endpoint ."
+                  }
+                },
+                "title" : "Context",
+                "description" : "Context endpoint."
+              }
+            },
+            "required" : [ "context" ]
           }, {
             "type" : "object",
             "properties" : {
