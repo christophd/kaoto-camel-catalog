@@ -75,6 +75,33 @@
       }
     }
   },
+  "context-messageStore": {
+    "kind": "testEndpoint",
+    "name": "context-messageStore",
+    "group": "context",
+    "title": "ContextMessageStore",
+    "propertiesSchema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object",
+      "properties": {
+        "messageName": {
+          "type": "string",
+          "title": "MessageName",
+          "description": "The message name."
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "The name of the endpoint"
+        },
+        "timeout": {
+          "type": "integer",
+          "title": "Timeout",
+          "description": "The timeout when receiving messages from the message store."
+        }
+      }
+    }
+  },
   "kafka-synchronous": {
     "kind": "testEndpoint",
     "name": "kafka-synchronous",
@@ -3068,6 +3095,46 @@
       }
     }
   },
+  "ssh-server": {
+    "kind": "testEndpoint",
+    "name": "ssh-server",
+    "group": "ssh",
+    "title": "SshServer",
+    "propertiesSchema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object",
+      "properties": {
+        "autoStart": {
+          "type": "boolean",
+          "title": "AutoStart",
+          "description": "When enabled the server is automatically started after creation."
+        },
+        "debugLogging": {
+          "type": "boolean",
+          "title": "DebugLogging",
+          "description": "When enabled the server prints debug logging output.",
+          "$comment": "group:advanced"
+        },
+        "endpointAdapter": {
+          "type": "string",
+          "title": "EndpointAdapter",
+          "description": "Sets a custom endpoint adapter to handle requests.",
+          "$comment": "group:advanced"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "The name of the endpoint"
+        },
+        "timeout": {
+          "type": "integer",
+          "title": "Timeout",
+          "description": "The server timeout.",
+          "default": "5000"
+        }
+      }
+    }
+  },
   "mail-server": {
     "kind": "testEndpoint",
     "name": "mail-server",
@@ -3157,46 +3224,6 @@
           "title": "SplitMultipart",
           "description": "When enabled the server splits multipart messages into individual parts.",
           "$comment": "group:advanced"
-        },
-        "timeout": {
-          "type": "integer",
-          "title": "Timeout",
-          "description": "The server timeout.",
-          "default": "5000"
-        }
-      }
-    }
-  },
-  "ssh-server": {
-    "kind": "testEndpoint",
-    "name": "ssh-server",
-    "group": "ssh",
-    "title": "SshServer",
-    "propertiesSchema": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "type": "object",
-      "properties": {
-        "autoStart": {
-          "type": "boolean",
-          "title": "AutoStart",
-          "description": "When enabled the server is automatically started after creation."
-        },
-        "debugLogging": {
-          "type": "boolean",
-          "title": "DebugLogging",
-          "description": "When enabled the server prints debug logging output.",
-          "$comment": "group:advanced"
-        },
-        "endpointAdapter": {
-          "type": "string",
-          "title": "EndpointAdapter",
-          "description": "Sets a custom endpoint adapter to handle requests.",
-          "$comment": "group:advanced"
-        },
-        "name": {
-          "type": "string",
-          "title": "Name",
-          "description": "The name of the endpoint"
         },
         "timeout": {
           "type": "integer",
