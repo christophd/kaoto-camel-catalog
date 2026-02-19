@@ -24,6 +24,8 @@ const CATALOGS = {
   // https://repo1.maven.org/maven2/org/apache/camel/springboot/camel-catalog-provider-springboot/
   // https://maven.repository.redhat.com/ga/org/apache/camel/springboot/camel-catalog-provider-springboot/
   SpringBoot: ['4.17.0', '4.14.4', '4.14.2.redhat-00015', '4.10.7.redhat-00013', '4.8.5.redhat-00008', '4.4.0.redhat-00039'],
+  // https://repo1.maven.org/maven2/org/citrusframework/citrus-catalog-schema/
+  Citrus: ['4.9.2'],
 };
 
 const KAMELETS_VERSION = '4.15.0';

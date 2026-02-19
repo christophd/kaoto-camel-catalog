@@ -74,7 +74,7 @@ public class KaotoMavenVersionManager extends MavenVersionManager {
             boolean shouldFetchTransitive = true;
             boolean shouldUseSnapshots = version.endsWith("SNAPSHOT");
 
-            resolve(downloader, gav, shouldUseSnapshots, shouldFetchTransitive);
+            resolve(gav, shouldUseSnapshots, shouldFetchTransitive);
             this.runtimeProviderVersion = version;
 
             if (artifactId.contains("catalog")) {
@@ -98,12 +98,12 @@ public class KaotoMavenVersionManager extends MavenVersionManager {
      * as one of the URLs in the
      * helperClassLoader, so further Catalog access may load resources from it.
      */
-    public void resolve(MavenDownloader mavenDownloader, String gav, boolean useSnapshots, boolean transitive) {
+    public void resolve(String gav, boolean useSnapshots, boolean transitive) {
         try {
             Set<String> extraRepositories = new LinkedHashSet<>(repositories.values());
 
             List<MavenArtifact> artifacts =
-                    mavenDownloader.resolveArtifacts(Collections.singletonList(gav), extraRepositories, transitive,
+                    downloader.resolveArtifacts(Collections.singletonList(gav), extraRepositories, transitive,
                             useSnapshots);
 
             if (getLog()) {

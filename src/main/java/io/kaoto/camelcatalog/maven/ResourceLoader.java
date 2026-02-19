@@ -22,7 +22,7 @@ public class ResourceLoader {
     private final KaotoMavenVersionManager kaotoVersionManager;
     private final boolean verbose;
 
-    ResourceLoader(KaotoMavenVersionManager kaotoVersionManager, boolean verbose) {
+    public ResourceLoader(KaotoMavenVersionManager kaotoVersionManager, boolean verbose) {
         this.verbose = verbose;
         this.kaotoVersionManager = kaotoVersionManager;
     }

@@ -50,6 +50,9 @@ public class GenerateCommandOptions {
         Option camelSpringbootVersionOption = Option.builder().argName("version").option("s")
                 .longOpt("springboot")
                 .desc("Camel SpringBoot version").hasArg().build();
+        Option citrusVersionOption = Option.builder().argName("version").option("c").longOpt("citrus")
+                .desc("Citrus version. If not specified, it will use the generator installed version")
+                .hasArg().build();
         Option verboseOption = Option.builder().argName("v").option("v").longOpt("verbose")
                 .desc("Be more verbose")
                 .build();
@@ -60,6 +63,7 @@ public class GenerateCommandOptions {
         options.addOption(camelMainVersionOption);
         options.addOption(camelQuarkusVersionOption);
         options.addOption(camelSpringbootVersionOption);
+        options.addOption(citrusVersionOption);
         options.addOption(verboseOption);
 
         CommandLineParser parser = new DefaultParser();
@@ -71,6 +75,7 @@ public class GenerateCommandOptions {
         addRuntimeVersions(configBean, cmd, camelMainVersionOption, CatalogRuntime.Main);
         addRuntimeVersions(configBean, cmd, camelQuarkusVersionOption, CatalogRuntime.Quarkus);
         addRuntimeVersions(configBean, cmd, camelSpringbootVersionOption, CatalogRuntime.SpringBoot);
+        addRuntimeVersions(configBean, cmd, citrusVersionOption, CatalogRuntime.Citrus);
 
         if (configBean.getCatalogVersionSet().isEmpty()) {
             addDefaultVersions(configBean);

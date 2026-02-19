@@ -20,9 +20,7 @@
     "./types": "./dist/types/index.ts",
     "./catalog-index.d.ts": "./dist/types/catalog-index.d.ts",
     "./package.json": "./package.json",
-    "./*.json": "./dist/camel-catalog/*.json",
-    "./citrus/index.json": "./dist/citrus-catalog/index.json",
-    "./citrus/*.json": "./dist/citrus-catalog/*.json"
+    "./*.json": "./dist/camel-catalog/*.json"
   },
   "scripts": {
     "build": "yarn clean && yarn build:default:catalog && yarn build:ts && copyfiles index.js dist && yarn build:copy-catalog",

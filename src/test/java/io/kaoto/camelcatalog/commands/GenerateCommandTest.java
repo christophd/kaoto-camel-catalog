@@ -16,8 +16,8 @@
 package io.kaoto.camelcatalog.commands;
 
 import io.kaoto.camelcatalog.beans.ConfigBean;
-import io.kaoto.camelcatalog.generator.CatalogGenerator;
-import io.kaoto.camelcatalog.generator.CatalogGeneratorBuilder;
+import io.kaoto.camelcatalog.generator.CamelCatalogGenerator;
+import io.kaoto.camelcatalog.generator.CamelCatalogGeneratorBuilder;
 import io.kaoto.camelcatalog.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -59,26 +59,26 @@ class GenerateCommandTest {
 
     @Test
     void testGeneratorCalledWithCorrectParameters() {
-        try (var mockedBuilder = mockConstruction(CatalogGeneratorBuilder.class, (mockBuilder, context) -> {
+        try (var mockedBuilder = mockConstruction(CamelCatalogGeneratorBuilder.class, (mockBuilder, context) -> {
             when(mockBuilder.withRuntime(any(CatalogRuntime.class))).thenCallRealMethod().thenReturn(mockBuilder);
-            when(mockBuilder.withCamelCatalogVersion(anyString())).thenCallRealMethod().thenReturn(mockBuilder);
+            when(mockBuilder.withCatalogVersion(anyString())).thenCallRealMethod().thenReturn(mockBuilder);
             when(mockBuilder.withKameletsVersion(anyString())).thenCallRealMethod().thenReturn(mockBuilder);
             when(mockBuilder.withCamelKCRDsVersion(anyString())).thenCallRealMethod().thenReturn(mockBuilder);
             when(mockBuilder.withVerbose(anyBoolean())).thenCallRealMethod().thenReturn(mockBuilder);
 
             when(mockBuilder.withOutputDirectory(any(File.class))).thenReturn(mockBuilder);
             when(mockBuilder.build()).thenAnswer(invocation -> {
-                CatalogGenerator catalogGenerator = mock(CatalogGenerator.class);
+                CamelCatalogGenerator catalogGenerator = mock(CamelCatalogGenerator.class);
                 when(catalogGenerator.generate()).thenReturn(catalogDefinition);
                 return catalogGenerator;
             });
         })) {
             generateCommand.run();
 
-            CatalogGeneratorBuilder builder = mockedBuilder.constructed().get(0);
+            CamelCatalogGeneratorBuilder builder = mockedBuilder.constructed().get(0);
 
             verify(builder, times(1)).withRuntime(CatalogRuntime.Main);
-            verify(builder, times(1)).withCamelCatalogVersion("4.8.0");
+            verify(builder, times(1)).withCatalogVersion("4.8.0");
             verify(builder, times(1)).withKameletsVersion("1.0.0");
             verify(builder, times(1)).withCamelKCRDsVersion("2.3.1");
 
@@ -99,16 +99,16 @@ class GenerateCommandTest {
         };
 
         try (
-                var mockedBuilder = mockConstruction(CatalogGeneratorBuilder.class, (mockBuilder, context) -> {
+                var mockedBuilder = mockConstruction(CamelCatalogGeneratorBuilder.class, (mockBuilder, context) -> {
                     when(mockBuilder.withRuntime(any(CatalogRuntime.class))).thenCallRealMethod().thenReturn(mockBuilder);
-                    when(mockBuilder.withCamelCatalogVersion(anyString())).thenCallRealMethod().thenReturn(mockBuilder);
+                    when(mockBuilder.withCatalogVersion(anyString())).thenCallRealMethod().thenReturn(mockBuilder);
                     when(mockBuilder.withKameletsVersion(anyString())).thenCallRealMethod().thenReturn(mockBuilder);
                     when(mockBuilder.withCamelKCRDsVersion(anyString())).thenCallRealMethod().thenReturn(mockBuilder);
                     when(mockBuilder.withVerbose(anyBoolean())).thenCallRealMethod().thenReturn(mockBuilder);
 
                     when(mockBuilder.withOutputDirectory(any(File.class))).thenReturn(mockBuilder);
                     when(mockBuilder.build()).thenAnswer(invocation -> {
-                        CatalogGenerator catalogGenerator = mock(CatalogGenerator.class);
+                        CamelCatalogGenerator catalogGenerator = mock(CamelCatalogGenerator.class);
                         when(catalogGenerator.generate()).thenReturn(catalogDefinition);
                         return catalogGenerator;
                     });

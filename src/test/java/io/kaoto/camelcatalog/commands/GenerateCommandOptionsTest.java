@@ -66,7 +66,7 @@ public class GenerateCommandOptionsTest {
         ConfigBean configBean = new ConfigBean();
         GenerateCommandOptions generateCommandOptions = new GenerateCommandOptions(configBean);
         String[] args = { "-o", "outputDir", "-n", "catalogName", "-k", "kameletsVersion", "-m", "mainVersion", "-q",
-                "quarkusVersion", "-s", "springbootVersion" };
+                "quarkusVersion", "-s", "springbootVersion", "-c", "citrusVersion" };
 
         generateCommandOptions.configure(args);
 

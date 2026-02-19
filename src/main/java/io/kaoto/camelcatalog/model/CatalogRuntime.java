@@ -40,4 +40,11 @@ public enum CatalogRuntime {
 
         throw new IllegalArgumentException("No enum found with name: " + name);
     }
+
+    public String getRuntimeFolder() {
+        return switch (this) {
+            case Main, Quarkus, SpringBoot -> "camel-" + name().toLowerCase();
+            case Citrus -> name().toLowerCase();
+        };
+    }
 }

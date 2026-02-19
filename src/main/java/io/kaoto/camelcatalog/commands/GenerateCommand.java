@@ -3,10 +3,12 @@ package io.kaoto.camelcatalog.commands;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import io.kaoto.camelcatalog.beans.ConfigBean;
-import io.kaoto.camelcatalog.generator.CatalogGeneratorBuilder;
+import io.kaoto.camelcatalog.generator.CamelCatalogGeneratorBuilder;
 import io.kaoto.camelcatalog.generator.Util;
+import io.kaoto.camelcatalog.generator.citrus.CitrusCatalogGeneratorBuilder;
 import io.kaoto.camelcatalog.model.CatalogDefinition;
 import io.kaoto.camelcatalog.model.CatalogLibrary;
+import io.kaoto.camelcatalog.model.CatalogRuntime;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -34,7 +36,7 @@ public class GenerateCommand implements Runnable {
 
         configBean.getCatalogVersionSet()
                 .forEach(catalogCliArg -> {
-                    String runtimeFolderName = "camel-" + catalogCliArg.getRuntime().name().toLowerCase();
+                    String runtimeFolderName = catalogCliArg.getRuntime().getRuntimeFolder();
                     File runtimeFolder = createSubFolder(outputFolder, runtimeFolderName);
                     File catalogDefinitionFolder = createSubFolder(runtimeFolder, catalogCliArg.getCatalogVersion());
 
@@ -42,19 +44,25 @@ public class GenerateCommand implements Runnable {
                     LOGGER.info("Generating catalog: " + catalogCliArg.getRuntime() + " "
                             + catalogCliArg.getCatalogVersion());
 
-                    CatalogGeneratorBuilder builder = new CatalogGeneratorBuilder();
-                    var catalogGenerator = builder.withRuntime(catalogCliArg.getRuntime())
-                            .withCamelCatalogVersion(catalogCliArg.getCatalogVersion())
-                            .withKameletsVersion(configBean.getKameletsVersion())
-                            .withCamelKCRDsVersion("2.3.1")
-                            .withOutputDirectory(catalogDefinitionFolder)
-                            .withVerbose(configBean.isVerbose())
-                            .build();
+                    var catalogGenerator = switch(catalogCliArg.getRuntime()) {
+                        case Main, Quarkus, SpringBoot -> new CamelCatalogGeneratorBuilder()
+                                    .withRuntime(catalogCliArg.getRuntime())
+                                    .withCatalogVersion(catalogCliArg.getCatalogVersion())
+                                    .withKameletsVersion(configBean.getKameletsVersion())
+                                    .withCamelKCRDsVersion("2.3.1")
+                                    .withOutputDirectory(catalogDefinitionFolder)
+                                    .withVerbose(configBean.isVerbose())
+                                    .build();
+                        case Citrus -> new CitrusCatalogGeneratorBuilder()
+                                    .withCatalogVersion(catalogCliArg.getCatalogVersion())
+                                    .withOutputDirectory(catalogDefinitionFolder)
+                                    .withVerbose(configBean.isVerbose())
+                                    .build();
+                    };
 
                     CatalogDefinition catalogDefinition = catalogGenerator.generate();
                     File indexFile = catalogDefinitionFolder.toPath().resolve(catalogDefinition.getFileName()).toFile();
                     String relateIndexFile = outputFolder.toPath().relativize(indexFile.toPath()).toString().replace(File.separator, "/");
-
 
                     catalogDefinition.setFileName(relateIndexFile);
 
@@ -70,7 +78,6 @@ public class GenerateCommand implements Runnable {
         } catch (IOException e) {
             throw new RuntimeException("Error writing index file", e);
         }
-
     }
 
     private File createSubFolder(File parentFolder, String folderName) {

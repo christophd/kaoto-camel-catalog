@@ -38,4 +38,3 @@ async function copyFiles(srcDir) {
 }
 
 copyFiles('dist/camel-catalog');
-copyFiles('dist/citrus-catalog');
